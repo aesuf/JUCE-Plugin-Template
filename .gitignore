@@ -1,0 +1,151 @@
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_SharedCode.vcxproj
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_SharedCode.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_StandalonePlugin.vcxproj
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_StandalonePlugin.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_StandalonePlugin.vcxproj.user
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_VST3.vcxproj
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_VST3.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate_VST3.vcxproj.user
+PluginTemplate/Builds/VisualStudio2019/PluginTemplate.sln
+PluginTemplate/Builds/VisualStudio2019/resources.rc
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/.suo
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/Browse.VC.db
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/Solution.VC.db
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/ipch/AutoPCH/4c38751bceb933fa/PLUGINPROCESSOR.ipch
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/ipch/AutoPCH/70edfb9d723144fd/PLUGINEDITOR.ipch
+PluginTemplate/Builds/VisualStudio2019/.vs/PluginTemplate/v16/ipch/AutoPCH/ef8c280d2d387e02/PLUGINPROCESSOR.ipch
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_basics.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_devices.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_formats.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_plugin_client_ARA.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_plugin_client_utils.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_processors_ara.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_processors_lv2_libs.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_processors.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_audio_utils.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_core.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_data_structures.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_events.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_graphics.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_gui_basics.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/include_juce_gui_extra.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginEditor.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginProcessor.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate_SharedCode.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate_SharedCode.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate.Build.CppClean.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate.lib
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate.lib.recipe
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTemplate.pdb
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/CL.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/CL.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/CL.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/Lib-link.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/Lib-link.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/Lib.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Shared Code/PluginTe.D6D9F80C.tlog/PluginTemplate_SharedCode.lastbuildstate
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/include_juce_audio_plugin_client_Standalone.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTemplate_StandalonePlugin.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTemplate_StandalonePlugin.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTemplate.Build.CppClean.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTemplate.exe.recipe
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTemplate.pdb
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/resources.res
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/CL.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/CL.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/CL.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/link.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/link.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/link.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/PluginTemplate_StandalonePlugin.lastbuildstate
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/rc.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/rc.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/rc.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/Standalone Plugin/PluginTe.94D63D5C.tlog/unsuccessfulbuild
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/include_juce_audio_plugin_client_VST3.obj
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate_VST3.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate_VST3.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.Build.CppClean.log
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.exp
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.ilk
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.lib
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.pdb
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.vst3
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTemplate.vst3.recipe
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/resources.res
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/CL.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/CL.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/CL.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/link.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/link.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/link.write.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/PluginTemplate_VST3.lastbuildstate
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/PluginTemplate_VST3.write.1u.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/rc.command.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/rc.read.1.tlog
+PluginTemplate/Builds/VisualStudio2019/x64/Debug/VST3/PluginTe.163C6162.tlog/rc.write.1.tlog
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_SharedCode.vcxproj
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_SharedCode.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_StandalonePlugin.vcxproj
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_StandalonePlugin.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_StandalonePlugin.vcxproj.user
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_VST3.vcxproj
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_VST3.vcxproj.filters
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate_VST3.vcxproj.user
+PluginTemplate/Builds/VisualStudio2022/PluginTemplate.sln
+PluginTemplate/Builds/VisualStudio2022/resources.rc
+PluginTemplate/Builds/VisualStudio2022/.vs/PluginTemplate/v16/.suo
+PluginTemplate/Builds/VisualStudio2022/.vs/PluginTemplate/v16/Browse.VC.db
+PluginTemplate/Builds/VisualStudio2022/.vs/PluginTemplate/v16/Solution.VC.db
+PluginTemplate/Builds/VisualStudio2022/.vs/PluginTemplate/v16/ipch/AutoPCH/4fcaa5a9edd79848/PLUGINPROCESSOR.ipch
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Shared Code/PluginTemplate_SharedCode.log
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Shared Code/PluginTemplate_SharedCode.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Shared Code/PluginTemplate.Build.CppClean.log
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Standalone Plugin/PluginTemplate_StandalonePlugin.log
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Standalone Plugin/PluginTemplate_StandalonePlugin.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/Standalone Plugin/PluginTemplate.Build.CppClean.log
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/VST3/PluginTemplate_VST3.log
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/VST3/PluginTemplate_VST3.vcxproj.FileListAbsolute.txt
+PluginTemplate/Builds/VisualStudio2022/x64/Debug/VST3/PluginTemplate.Build.CppClean.log
+PluginTemplate/JuceLibraryCode/include_juce_audio_basics.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_basics.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_devices.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_devices.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_formats.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_formats.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AAX.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AAX.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_ARA.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AU_1.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AU.r
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_AUv3.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_LV2.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_Unity.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_VST_utils.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_processors_ara.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_processors_lv2_libs.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_processors.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_processors.mm
+PluginTemplate/JuceLibraryCode/include_juce_audio_utils.cpp
+PluginTemplate/JuceLibraryCode/include_juce_audio_utils.mm
+PluginTemplate/JuceLibraryCode/include_juce_core.cpp
+PluginTemplate/JuceLibraryCode/include_juce_core.mm
+PluginTemplate/JuceLibraryCode/include_juce_data_structures.cpp
+PluginTemplate/JuceLibraryCode/include_juce_data_structures.mm
+PluginTemplate/JuceLibraryCode/include_juce_events.cpp
+PluginTemplate/JuceLibraryCode/include_juce_events.mm
+PluginTemplate/JuceLibraryCode/include_juce_graphics.cpp
+PluginTemplate/JuceLibraryCode/include_juce_graphics.mm
+PluginTemplate/JuceLibraryCode/include_juce_gui_basics.cpp
+PluginTemplate/JuceLibraryCode/include_juce_gui_basics.mm
+PluginTemplate/JuceLibraryCode/include_juce_gui_extra.cpp
+PluginTemplate/JuceLibraryCode/include_juce_gui_extra.mm
+PluginTemplate/JuceLibraryCode/JuceHeader.h
+PluginTemplate/JuceLibraryCode/JucePluginDefines.h
+PluginTemplate/JuceLibraryCode/ReadMe.txt
