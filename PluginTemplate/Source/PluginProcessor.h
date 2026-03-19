@@ -59,36 +59,40 @@ public:
 
     //==============================================================================
 
-    // Give DSP initial values
-    void init();
-
-    // Pass sample rate and buffer size to DSP 
-    void prepare(double sampleRate, int samplesPerBlock);
-
-    // Called when user changes parameters
-    void update();
-
     // Reset DSP parameters
     void reset() override;
 
     // Store Parameters
     juce::AudioProcessorValueTreeState apvts;
-    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
 
 private:
-
-    bool isActive{ false };
-    bool mustUpdateProcessing{ false };
-
-    juce::LinearSmoothedValue<float> driveNormal{ 0.0 };
-    juce::LinearSmoothedValue<float> outputVolume[2]{ 0.0 };
-    juce::LinearSmoothedValue<float> outputMix[2]{ 0.0 };
-
-    // Called when user changes a parameter
-    void valueTreePropertyChanged(juce::ValueTree& tree, const juce::Identifier& property) override
-    {
-        mustUpdateProcessing = true;
-    }
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginTemplateAudioProcessor)
+
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+
+    // Internal DSP lifecycle — called only from prepareToPlay / processBlock
+    void init();
+    void prepare(double sampleRate, int samplesPerBlock);
+    void update();
+
+    // Thread-safe flags (shared between audio thread and message thread)
+    std::atomic<bool> isActive { false };
+    std::atomic<bool> mustUpdateProcessing { false };
+
+    // Called when user changes a parameter (message thread -> audio thread signal)
+    void valueTreePropertyChanged(juce::ValueTree& tree, const juce::Identifier& property) override
+    {
+        mustUpdateProcessing.store(true, std::memory_order_release);
+    }
+
+    // Cached raw parameter pointers (looked up once in constructor, lock-free reads)
+    std::atomic<float>* driveParam = nullptr;
+    std::atomic<float>* volParam   = nullptr;
+    std::atomic<float>* mixParam   = nullptr;
+
+    // Smoothed parameter values (advanced per-sample in processBlock)
+    juce::SmoothedValue<float, juce::ValueSmoothingTypes::Linear> driveSmoothed  { 0.0f };
+    juce::SmoothedValue<float, juce::ValueSmoothingTypes::Linear> volumeSmoothed { 1.0f };
+    juce::SmoothedValue<float, juce::ValueSmoothingTypes::Linear> mixSmoothed    { 0.0f };
 };
