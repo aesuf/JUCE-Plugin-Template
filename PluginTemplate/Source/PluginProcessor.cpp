@@ -23,7 +23,12 @@ PluginTemplateAudioProcessor::PluginTemplateAudioProcessor()
                        ), apvts(*this, nullptr, "Parameters", createParameters())
 #endif
 {
-    apvts.state.addListener(this); // [2] Add this too!
+    // Cache raw parameter pointers — one-time string lookup, lock-free reads thereafter
+    driveParam = apvts.getRawParameterValue("DRIVE");
+    volParam   = apvts.getRawParameterValue("VOL");
+    mixParam   = apvts.getRawParameterValue("MIX");
+
+    apvts.state.addListener(this);
     init();
 }
 
@@ -98,10 +103,15 @@ void PluginTemplateAudioProcessor::prepareToPlay (double sampleRate, int samples
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    isActive = true;
+    isActive.store(true, std::memory_order_release);
     prepare(sampleRate, samplesPerBlock);
-    update(); // pass information to our Algorithm
-    reset(); // Clear Junk Values, etc.
+    reset();   // Set ramp times and snap smoothers to current targets
+    update();  // Load APVTS parameter values as smoothed targets
+
+    // Snap all smoothed values so the first buffer doesn't ramp from defaults
+    driveSmoothed.setCurrentAndTargetValue(driveSmoothed.getTargetValue());
+    volumeSmoothed.setCurrentAndTargetValue(volumeSmoothed.getTargetValue());
+    mixSmoothed.setCurrentAndTargetValue(mixSmoothed.getTargetValue());
 }
 
 void PluginTemplateAudioProcessor::releaseResources()
@@ -138,10 +148,10 @@ bool PluginTemplateAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 
 void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    if (!isActive)
+    if (!isActive.load(std::memory_order_acquire))
         return;
 
-    if (mustUpdateProcessing)
+    if (mustUpdateProcessing.load(std::memory_order_acquire))
         update();
 
     juce::ScopedNoDenormals noDenormals;
@@ -151,8 +161,6 @@ void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     auto numSamples = buffer.getNumSamples();
     auto numChannels = juce::jmin(totalNumInputChannels, totalNumOutputChannels);
 
-
-
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -160,33 +168,43 @@ void PluginTemplateAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear (i, 0, numSamples);
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    // Sub-block processing: advance smoothed parameters in fixed-size chunks.
+    // When you add filters, recalculate their coefficients once per sub-block
+    // (every 32 samples) instead of every sample — the standard pattern for
+    // balancing smoothness against CPU cost.
+    const int subBlockSize = 32;
+    int samplesRemaining = numSamples;
+    int startSample = 0;
+
+    while (samplesRemaining > 0)
     {
-        auto* channelData = buffer.getWritePointer(channel);
+        int chunkSize = juce::jmin(subBlockSize, samplesRemaining);
 
-        // ..do something to the data...
-
-        // Iterate over each sample in this channel
-        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+        // Samples outer, channels inner — shared SmoothedValues advance
+        // once per sample so both channels receive identical values.
+        for (int i = 0; i < chunkSize; ++i)
         {
-            auto mixVal = outputMix[channel].getNextValue()/100.0f;
-            float val = channelData[sample] * driveNormal.getCurrentValue();
-            float wet = (2.f / juce::float_Pi) * atan(val); //apply distortion
-            float dry = channelData[sample];
+            float drive  = driveSmoothed.getNextValue();
+            float mixVal = mixSmoothed.getNextValue() / 100.0f;
+            float vol    = volumeSmoothed.getNextValue();
 
-            channelData[sample] = (1.0f - mixVal) * dry + mixVal * wet;
+            for (int ch = 0; ch < numChannels; ++ch)
+            {
+                float* channelData = buffer.getWritePointer(ch);
+                int idx = startSample + i;
 
+                float dry = channelData[idx];
+                float val = dry * drive;
+                float wet = (2.f / juce::float_Pi) * std::atan(val);
+
+                channelData[idx] = ((1.0f - mixVal) * dry + mixVal * wet) * vol;
+            }
         }
 
-        outputVolume[channel].applyGain(channelData, numSamples);
+        startSample += chunkSize;
+        samplesRemaining -= chunkSize;
     }
 }
 
@@ -224,53 +242,54 @@ void PluginTemplateAudioProcessor::setStateInformation (const void* data, int si
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 
-    // Create an xml pointer, and get the XML from the binary (our memory block)
+    // Parse binary data back to XML — may be null if data is corrupt or empty
     std::unique_ptr<juce::XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
 
-    // Create a temporary ValueTree called copyState and save that data into our ValueTree object
-    juce::ValueTree copyState = juce::ValueTree::fromXml(*xml.get());
-
-    // Now we will replace the state with our copyState object in our apvts object
-    apvts.replaceState(copyState);
+    if (xml != nullptr)
+    {
+        juce::ValueTree copyState = juce::ValueTree::fromXml(*xml);
+        if (copyState.isValid())
+            apvts.replaceState(copyState);
+    }
 }
 
 void PluginTemplateAudioProcessor::init()
 {
+    // Set SmoothedValue defaults to match parameter defaults
+    driveSmoothed.setCurrentAndTargetValue(20.0f);    // DRIVE default = 20
+    volumeSmoothed.setCurrentAndTargetValue(1.0f);    // VOL default = 0 dB = gain 1.0
+    mixSmoothed.setCurrentAndTargetValue(0.0f);       // MIX default = 0%
 }
 
 void PluginTemplateAudioProcessor::prepare(double sampleRate, int samplesPerBlock)
 {
+    // Prepare DSP modules here (e.g., filters, convolution engines).
+    // Cache sample rate if you need it for coefficient calculations:
+    //   currentSampleRate = sampleRate;
+    //
+    // Set up a ProcessSpec for JUCE dsp modules:
+    //   juce::dsp::ProcessSpec spec;
+    //   spec.sampleRate = sampleRate;
+    //   spec.maximumBlockSize = static_cast<juce::uint32>(samplesPerBlock);
+    //   spec.numChannels = static_cast<juce::uint32>(getTotalNumOutputChannels());
 }
 
 void PluginTemplateAudioProcessor::update()
 {
-    mustUpdateProcessing = false;
+    mustUpdateProcessing.store(false, std::memory_order_relaxed);
 
-    //Load variables from APVTS
-    auto drive = apvts.getRawParameterValue("DRIVE");
-    auto volume = apvts.getRawParameterValue("VOL");
-    auto mix = apvts.getRawParameterValue("MIX");
-
-    driveNormal = drive->load();
-
-    for (int channel = 0; channel < 2; ++channel)
-    {
-        outputVolume[channel].setTargetValue(juce::Decibels::decibelsToGain(volume->load()));
-        outputMix[channel].setTargetValue(mix->load());
-    }
-
+    // Load parameter values via cached pointers (lock-free atomic reads)
+    driveSmoothed.setTargetValue(driveParam->load());
+    volumeSmoothed.setTargetValue(juce::Decibels::decibelsToGain(volParam->load()));
+    mixSmoothed.setTargetValue(mixParam->load());
 }
 
 void PluginTemplateAudioProcessor::reset()
 {
-    driveNormal.reset(getSampleRate(), 0.050);
-
-    for (int channel = 0; channel < 2; ++channel)
-    {
-        // reset(sampleRate, rampLength in seconds)
-        outputVolume[channel].reset(getSampleRate(), 0.001);
-        outputMix[channel].reset(getSampleRate(), 0.001);
-    }
+    // Set ramp times (50ms smoothing for all parameters)
+    driveSmoothed.reset(getSampleRate(), 0.050);
+    volumeSmoothed.reset(getSampleRate(), 0.050);
+    mixSmoothed.reset(getSampleRate(), 0.050);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor::createParameters()
@@ -287,7 +306,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginTemplateAudioProcessor
     parameters.push_back(std::make_unique<juce::AudioParameterFloat>("DRIVE", "Drive", juce::NormalisableRange<float>(0.0f, 100.0f, 0.1f), 20.0f, "%", juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Add a Volume Parameter to our vector of parameters
-    parameters.push_back(std::make_unique<juce::AudioParameterFloat>("VOL", "Volume", juce::NormalisableRange<float>(-40.0f, 40.0f), 0.0f, "db", 
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>("VOL", "Volume", juce::NormalisableRange<float>(-40.0f, 40.0f), 0.0f, "db",
         juce::AudioProcessorParameter::genericParameter, valueToTextFunction, textToValueFunction));
 
     // Add a Wet/Dry Parameter to our vector of parameters
